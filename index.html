@@ -1,11 +1,48 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CSS Day</title>
+    <link rel="stylesheet" href="./styles/fonts.css" />
+    <link rel="stylesheet" href="./styles/index.css" />
+
+    <script src="../js/vendor/fontfaceobserver.js"></script>
+    <script type="text/javascript">
+        (function () {
+            document.documentElement.className += " wf-inactive";
+
+            // Optimization for Repeat Views
+            // console.log('session', sessionStorage.foutFontsLoaded)
+            // if (sessionStorage.foutFontsLoaded) {
+            //     document.documentElement.classList.remove("wf-inactive");
+            //     document.documentElement.classList.add("wf-active");
+            //     return;
+            // }
+
+            var fontA = new FontFaceObserver("Inter", {
+                "font-weight": "normal",
+                "font-style": "normal"
+            });
+            var fontB = new FontFaceObserver("Inter-Bold", {
+                "font-weight": "bold",
+                "font-style": "normal"
+            })
+
+
+            Promise.all([fontA.load(), fontB.load()]).then(function () {
+                document.documentElement.classList.remove("wf-inactive");
+                document.documentElement.classList.add("wf-active");
+
+                // Optimization for Repeat Views
+                sessionStorage.foutFontsLoaded = true;
+            });
+        })();
+    </script>
 </head>
+
 <body>
     <header>
         <a href="/">CSS Day</a>
@@ -26,4 +63,5 @@
         <button>Buy Tickets <img src="./icons/arrow-right.svg" alt="Right arrow"></button>
     </main>
 </body>
+
 </html>
